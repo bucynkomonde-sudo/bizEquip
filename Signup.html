@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | Biz Equip</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family:'Montserrat', sans-serif;
+    background: linear-gradient(to bottom right, #001f3f, #003366);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .signup-box {
+    background: #fff;
+    color: #001f3f;
+    border-radius: 15px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .logo img {
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    color: #001f3f;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.4rem 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+
+  .question {
+    text-align: left;
+    margin-top: 1rem;
+  }
+
+  .question label {
+    font-weight: 600;
+  }
+
+  .checkbox-group label {
+    display: block;
+    font-weight: 400;
+  }
+
+  button {
+    background: #FFD700;
+    color: #001f3f;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #FFC300;
+  }
+
+  a {
+    color: #001f3f;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <div class="signup-box">
+    <div class="logo">
+      <img src="334b18f7-d1cd-4946-a0e7-7f35a1ff6381.png" alt="Biz Equip Logo">
+      <h2>Biz Equip</h2>
+    </div>
+
+    <h3>Create Your Account</h3>
+
+    <form onsubmit="return handleSignup(event)">
+      <input type="text" id="fullname" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirm" placeholder="Confirm Password" required>
+
+      <div class="question">
+        <label>Industry:</label>
+        <select id="industry" required>
+          <option value="">-- Select Industry --</option>
+          <option>Technology</option>
+          <option>Construction</option>
+          <option>Food & Beverage</option>
+          <option>Retail</option>
+          <option>Manufacturing</option>
+          <option>Education</option>
+          <option>Other</option>
+        </select>
+        <input type="text" id="otherIndustry" placeholder="If Other, specify">
+      </div>
+
+      <div class="question">
+        <label>Are you currently a business owner?</label><br>
+        <label><input type="radio" name="owner" value="Yes"> Yes</label>
+        <label><input type="radio" name="owner" value="No"> No</label>
+      </div>
+
+      <div class="question">
+        <label>What is your business goal?</label>
+        <select id="goal" required>
+          <option value="">-- Select Goal --</option>
+          <option>Start a new business</option>
+          <option>Grow my business</option>
+          <option>Find funding</option>
+          <option>Access tenders</option>
+          <option>Learn management skills</option>
+          <option>Other</option>
+        </select>
+        <input type="text" id="otherGoal" placeholder="If Other, specify">
+      </div>
+
+      <div class="question">
+        <label>What are you looking for on Biz Equip?</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="Mentorship"> Mentorship</label>
+          <label><input type="checkbox" value="Financial Tools"> Financial Tools</label>
+          <label><input type="checkbox" value="Templates"> Templates</label>
+          <label><input type="checkbox" value="Courses"> Courses</label>
+          <label><input type="checkbox" value="Partnerships"> Partnerships</label>
+          <label><input type="checkbox" value="Suppliers"> Suppliers</label>
+        </div>
+      </div>
+
+      <input type="text" id="businessName" placeholder="Your Business Name" required>
+      <textarea id="needs" placeholder="What do you need most from us?" rows="3" required></textarea>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p style="margin-top:1rem;">
+      Already have an account? <a href="login.html">Login</a><br>
+      <a href="index.html">← Back to Home</a>
+    </p>
+  </div>
+
+  <script>
+    function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('fullname').value.trim();
+      if (!name) return alert('Please fill in your name.');
+      alert('Signup successful! Redirecting...');
+      localStorage.setItem('userData', JSON.stringify({ name, industry: document.getElementById('industry').value }));
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+
+</body>
+</html>
