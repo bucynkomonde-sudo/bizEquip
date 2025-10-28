@@ -57,6 +57,7 @@
   a { color:#001f3f; text-decoration:none; font-weight:600; cursor:pointer; }
   a:hover { text-decoration:underline; }
   .link-row { margin-top:1rem; font-size:0.95rem; }
+  .link-inline { display:flex; justify-content:center; gap:1rem; margin-top:0.5rem; }
   .hidden { display:none; }
 </style>
 </head>
@@ -71,13 +72,20 @@
   <form id="loginForm" onsubmit="return handleLogin(event)">
     <input type="text" id="login-username" placeholder="Username" required><br>
     <input type="password" id="login-password" placeholder="Password" required><br>
+
     <div class="remember">
       <label><input type="checkbox" id="remember"> Remember me</label>
+    </div>
+
+    <button type="submit">Login</button>
+
+    <!-- Forgot links inline -->
+    <div class="link-inline">
+      <a onclick="showForm('forgotUsernameForm')">Forgot Username?</a>
       <a onclick="showForm('forgotPasswordForm')">Forgot Password?</a>
     </div>
-    <button type="submit">Login</button>
+
     <div class="link-row">
-      <a onclick="showForm('forgotUsernameForm')">Forgot Username?</a><br>
       Don’t have an account? <a href="signup.html">Sign Up</a><br>
       <a href="index.html">← Back to Home</a>
     </div>
@@ -120,13 +128,18 @@
   // Login handler
   function handleLogin(e){
     e.preventDefault();
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-    if(username && password){
-      alert('Login successful! Redirecting...');
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const foundUser = users.find(u => u.username === username && u.password === password);
+
+    if(foundUser){
+      localStorage.setItem('activeUser', JSON.stringify(foundUser));
+      alert(`Welcome back, ${foundUser.fullname}! Redirecting to your dashboard...`);
       window.location.href = 'dashboard.html';
     } else {
-      alert('Please fill in your credentials.');
+      alert('Incorrect username or password. Please try again or sign up.');
     }
   }
 
@@ -134,7 +147,14 @@
   function handlePasswordReset(e){
     e.preventDefault();
     const email = document.getElementById('resetEmail').value;
-    alert(`A password reset link has been sent to ${email}.`);
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const found = users.find(u => u.email === email);
+
+    if(found){
+      alert(`Password reset link sent to ${email}. (Demo simulation)`);
+    } else {
+      alert('No account found with this email.');
+    }
     showForm('loginForm');
   }
 
@@ -142,11 +162,17 @@
   function handleUsernameRecovery(e){
     e.preventDefault();
     const email = document.getElementById('recoverEmail').value;
-    alert(`Your username has been sent to ${email}.`);
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const found = users.find(u => u.email === email);
+
+    if(found){
+      alert(`Your username is: ${found.username}`);
+    } else {
+      alert('No account found with this email.');
+    }
     showForm('loginForm');
   }
 </script>
 
 </body>
 </html>
-
