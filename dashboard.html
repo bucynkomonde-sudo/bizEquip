@@ -1,74 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Biz Equip - Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing:border-box; margin:0; padding:0; }
-  html,body { height:100%; }
-  body {
-    font-family:'Montserrat',sans-serif;
-    display:flex;
-    height:100vh;
-    background:#f9f9f9;
-    color:#001f3f;
-    overflow:hidden;
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Montserrat",sans-serif;
+    display:flex;height:100vh;background:#f9f9f9;color:#001f3f;overflow:hidden;
   }
 
-  .sidebar { width:240px; background:#001f3f; color:#FFD700; display:flex; flex-direction:column; padding:2rem 1rem; }
-  .sidebar h2 { font-size:1.5rem; margin-bottom:1.25rem; }
-  .sidebar a { color:#FFD700; text-decoration:none; margin-bottom:0.7rem; display:flex; align-items:center; padding:0.55rem; border-radius:6px; transition:0.2s; }
-  .sidebar a:hover { background:#003366; }
-  .sidebar a i { margin-right:0.6rem; }
-  .sidebar button { margin-top:auto; background:#FFD700; color:#001f3f; border:none; padding:0.55rem; font-weight:700; border-radius:6px; cursor:pointer; transition:0.2s; }
-  .sidebar button:hover { background:#FFC300; }
+  /* Sidebar */
+  .sidebar{
+    width:260px;background:#001f3f;color:#FFD700;display:flex;flex-direction:column;padding:1.75rem;
+    position:relative;
+  }
+  .sidebar h2{font-size:1.4rem;margin-bottom:1rem}
+  .navlink{color:#FFD700;text-decoration:none;margin:0.4rem 0;display:flex;align-items:center;padding:0.5rem;border-radius:6px;cursor:pointer}
+  .navlink:hover{background:#003366}
+  .navlink i{margin-right:0.6rem}
+  .logout-fixed{position:absolute;left:1.75rem;right:1.75rem;bottom:1.75rem}
+  .logout-fixed button{width:100%;background:#FFD700;color:#001f3f;border:none;padding:0.6rem;border-radius:6px;font-weight:700;cursor:pointer}
+  .sidebar-scroll{overflow:auto;padding-bottom:3.5rem} /* so logout doesn't hide content */
 
-  .main { flex:1; padding:20px; overflow-y:auto; }
-  .top-row { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
-  .profile-left { display:flex; gap:12px; align-items:center; }
-  .avatar { width:58px; height:58px; border-radius:8px; background:linear-gradient(135deg,#7C3AED,#06B6D4); color:white; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; }
-  .user-info { line-height:1; }
-  .user-info .name { font-weight:700; font-size:18px; }
-  .user-info .industry { font-size:13px; color:rgba(0,31,63,0.7); margin-top:3px; }
-  .edit-btn { background:#ffd700; color:#001f3f; border:0; padding:8px 12px; border-radius:6px; cursor:pointer; font-weight:700; }
-  .welcome { font-size:1.05rem; margin-bottom:8px; color:#001f3f; }
+  /* main */
+  .main{flex:1;padding:22px;overflow:auto}
+  .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .profile-left{display:flex;gap:12px;align-items:center}
+  .avatar{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#7C3AED,#06B6D4);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px}
+  .user-info .name{font-weight:700;font-size:18px}
+  .user-info .industry{font-size:13px;color:rgba(0,31,63,0.7);margin-top:4px}
+  .edit-btn{background:#ffd700;color:#001f3f;border:0;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:700}
+  .welcome{font-size:1.05rem;margin-bottom:10px;color:#001f3f}
 
-  .grid { display:grid; grid-template-columns:1fr; gap:12px; }
-  @media(min-width:768px){ .grid { grid-template-columns:repeat(3,1fr); } }
-  .card { background:#fff; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.08); text-align:left; transition:0.18s; }
-  .card:hover { transform:translateY(-6px); }
-  .card img { max-width:100%; height:42px; object-fit:contain; margin-bottom:8px; display:block; }
-  a.btn { display:inline-block; padding:7px 12px; background:#FFD700; color:#001f3f; font-weight:700; border-radius:6px; text-decoration:none; transition:0.18s; margin-top:8px; }
-  a.btn:hover { background:#FFC300; }
-  .section { display:none; }
-  .section.active { display:block; }
+  h3{margin-bottom:8px;color:#001f3f}
+  .muted{color:rgba(0,31,63,0.7);font-size:13px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:780px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  .card{background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+  .card strong{display:block;margin-bottom:6px}
+  a.btn{display:inline-block;padding:8px 12px;background:#FFD700;color:#001f3f;border-radius:6px;text-decoration:none;font-weight:700}
+  a.btn:hover{background:#FFC300}
+  .section{display:none}
+  .section.active{display:block}
+  .small{font-size:13px;color:rgba(0,31,63,0.6);margin-top:6px}
+  label{font-weight:600}
 
-  h3 { margin-bottom:10px; color:#001f3f; font-size:18px; }
-  .muted { color:rgba(0,31,63,0.7); font-size:13px; }
+  /* small form styles */
+  input,select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #ccc;margin:6px 0;font-size:14px}
+  .row{display:flex;gap:12px}
+  .row .col{flex:1}
+  .inline{display:flex;gap:8px;align-items:center}
+  .actions{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  .smallmuted{font-size:12px;color:#666;margin-top:6px}
 </style>
 </head>
 <body>
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <h2>Biz Equip</h2>
-  <a href="#" data-section="register"><i>📝</i> Register Business</a>
-  <a href="#" data-section="financial"><i>💰</i> Financial Tools</a>
-  <a href="#" data-section="templates"><i>📄</i> Business Templates</a>
-  <a href="#" data-section="mentors"><i>👩🏫</i> Mentors</a>
-  <a href="#" data-section="courses"><i>🎓</i> Short Courses</a>
-  <a href="#" data-section="tenders"><i>📑</i> Tender Learning</a>
-  <a href="#" data-section="partnerships"><i>🤝</i> Partnerships</a>
-  <a href="#" data-section="suppliers"><i>🏭</i> Suppliers</a>
-  <a href="#" data-section="events"><i>📅</i> Upcoming Events</a>
-  <a href="#" data-section="videos"><i>🎥</i> Video Tutorials</a>
-  <a href="#" data-section="community"><i>🌐</i> Community</a>
-  <button id="logoutBtn">Logout</button>
+  <div class="sidebar-scroll">
+    <h2>Biz Equip</h2>
+    <div class="navlink" data-section="journey"><i>🧭</i><span>Your Journey</span></div>
+    <div class="navlink" data-section="register"><i>📝</i><span>Register Business</span></div>
+    <div class="navlink" data-section="financial"><i>💰</i><span>Financial Tools</span></div>
+    <div class="navlink" data-section="templates"><i>📄</i><span>Business Templates</span></div>
+    <div class="navlink" data-section="mentors"><i>👩🏫</i><span>Mentors</span></div>
+    <div class="navlink" data-section="courses"><i>🎓</i><span>Short Courses</span></div>
+    <div class="navlink" data-section="tenders"><i>📑</i><span>Tender Learning</span></div>
+    <div class="navlink" data-section="partnerships"><i>🤝</i><span>Partnerships</span></div>
+    <div class="navlink" data-section="suppliers"><i>🏭</i><span>Suppliers</span></div>
+    <div class="navlink" data-section="events"><i>📅</i><span>Events & Community</span></div>
+    <div class="navlink" data-section="videos"><i>🎥</i><span>Video Tutorials</span></div>
+    <div class="navlink" data-section="funding"><i>💸</i><span>Access to Funding</span></div>
+  </div>
+
+  <div class="logout-fixed">
+    <button id="logoutBtn">Logout</button>
+  </div>
 </div>
 
-<!-- Main Content -->
+<!-- Main -->
 <div class="main">
   <div class="top-row">
     <div class="profile-left">
@@ -78,69 +93,702 @@
         <div class="industry" id="displayIndustry">Industry: —</div>
       </div>
     </div>
-    <div>
-      <button class="edit-btn" id="editProfileBtn">Edit Profile</button>
-    </div>
+    <button class="edit-btn" id="editProfileBtn">Edit Profile</button>
   </div>
 
   <div class="welcome" id="welcomeMsg">Welcome back — here's your dashboard overview.</div>
 
-  <!-- Sections remain the same as your code -->
+  <!-- Your Journey -->
+  <div class="section" id="journey">
+    <h3>Your Journey</h3>
+    <p class="muted">This will be your personalised step-by-step roadmap. (Placeholder — we will add modules and milestones here.)</p>
+  </div>
+
+  <!-- Register Business -->
+  <div class="section" id="register">
+    <h3>Register Your Business</h3>
+    <p class="muted">Use these official registration portals:</p>
+
+    <div class="grid" style="margin-top:10px">
+      <div class="card">
+        <strong>CIDB (Construction Industry Development Board)</strong>
+        <div class="small">Register to access construction tenders and grading information.</div>
+        <div class="actions">
+          <a class="btn" href="https://www.cidb.org.za/" target="_blank">Go to CIDB</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>CSD (Central Supplier Database)</strong>
+        <div class="small">Register to be listed for government procurement opportunities.</div>
+        <div class="actions">
+          <a class="btn" href="https://secure.csd.gov.za" target="_blank">Go to CSD</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>SARS (Tax Registration)</strong>
+        <div class="small">Register for tax, VAT, and other SARS services.</div>
+        <div class="actions">
+          <a class="btn" href="https://www.sars.gov.za" target="_blank">Go to SARS</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>CIPC (Company Registration)</strong>
+        <div class="small">Company registration, annual returns and documents.</div>
+        <div class="actions">
+          <a class="btn" href="https://www.cipc.co.za" target="_blank">Go to CIPC</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Financial Tools -->
+  <div class="section" id="financial">
+    <h3>Financial Tools</h3>
+    <p class="muted">Budgeting, cashflow, pricing, invoices and quotations.</p>
+
+    <div style="margin-top:12px" class="grid">
+
+      <!-- Budget Planner -->
+      <div class="card">
+        <strong>Budget Planner</strong>
+        <div class="small">Add monthly income and expenses to estimate profit.</div>
+        <div style="margin-top:8px">
+          <label>Monthly income</label>
+          <input id="bp-income" type="number" placeholder="Total income per month (ZAR)">
+          <label>Monthly expenses</label>
+          <input id="bp-expenses" type="number" placeholder="Total expenses per month (ZAR)">
+          <div class="actions">
+            <button class="btn" onclick="runBudget()">Calculate</button>
+            <a class="btn" href="#" id="bp-download" style="display:none">Download CSV</a>
+          </div>
+          <div id="bp-output" class="smallmuted"></div>
+        </div>
+      </div>
+
+      <!-- Cashflow Calculator -->
+      <div class="card">
+        <strong>Cashflow Calculator</strong>
+        <div class="small">Project cashflow for the next 12 months quickly.</div>
+        <div style="margin-top:8px">
+          <label>Starting balance</label>
+          <input id="cf-start" type="number" placeholder="Starting cash balance (ZAR)">
+          <label>Monthly net change (income - expenses)</label>
+          <input id="cf-month" type="number" placeholder="Net monthly change (ZAR)">
+          <div class="actions">
+            <button class="btn" onclick="runCashflow()">Project 12 months</button>
+            <a class="btn" id="cf-download" style="display:none">Download CSV</a>
+          </div>
+          <div id="cf-output" class="smallmuted"></div>
+        </div>
+      </div>
+
+      <!-- Pricing / Costing -->
+      <div class="card">
+        <strong>Pricing & Costing</strong>
+        <div class="small">Calculate cost, markup and recommended retail price.</div>
+        <div style="margin-top:8px">
+          <label>Unit cost</label><input id="price-cost" type="number" placeholder="Cost per unit (ZAR)">
+          <label>Desired markup (%)</label><input id="price-markup" type="number" placeholder="e.g. 30">
+          <div class="actions">
+            <button class="btn" onclick="calcPrice()">Calculate Price</button>
+            <a class="btn" id="price-download" style="display:none">Download</a>
+          </div>
+          <div id="price-output" class="smallmuted"></div>
+        </div>
+      </div>
+
+      <!-- Invoice Builder -->
+      <div class="card" style="grid-column:1/ -1">
+        <strong>Invoice Builder</strong>
+        <div class="small">Create an invoice, download (CSV) or open your email to send it.</div>
+        <div style="margin-top:8px">
+          <div class="row">
+            <div class="col">
+              <label>Invoice No</label><input id="inv-no" type="text" placeholder="INV-001">
+            </div>
+            <div class="col">
+              <label>Invoice Date</label><input id="inv-date" type="date">
+            </div>
+          </div>
+
+          <label>Bill To (client name)</label><input id="inv-client" type="text" placeholder="Client name">
+          <label>Client Email</label><input id="inv-client-email" type="email" placeholder="client@example.com">
+
+          <div id="invoice-items">
+            <div class="row item-row">
+              <div class="col"><input class="item-desc" placeholder="Description"></div>
+              <div style="width:110px"><input class="item-qty" type="number" placeholder="Qty"></div>
+              <div style="width:140px"><input class="item-price" type="number" placeholder="Unit price"></div>
+              <div style="width:80px"><button class="btn" onclick="this.closest('.item-row').remove()">Del</button></div>
+            </div>
+          </div>
+          <div style="margin-top:8px">
+            <button class="btn" onclick="addInvoiceRow()">+ Add item</button>
+          </div>
+
+          <div class="actions">
+            <button class="btn" onclick="generateInvoice()">Generate & Download CSV</button>
+            <button class="btn" onclick="emailInvoice()">Open email to send</button>
+          </div>
+          <div id="inv-msg" class="smallmuted"></div>
+        </div>
+      </div>
+
+      <!-- Quotation Builder -->
+      <div class="card" style="grid-column:1/ -1">
+        <strong>Quotation Builder</strong>
+        <div class="small">Create quotation, export (CSV) or email to client.</div>
+        <div style="margin-top:8px">
+          <div class="row">
+            <div class="col"><label>Quotation No</label><input id="qt-no" type="text" placeholder="QT-001"></div>
+            <div class="col"><label>Date</label><input id="qt-date" type="date"></div>
+          </div>
+          <label>Client</label><input id="qt-client" type="text" placeholder="Client name">
+          <label>Client Email</label><input id="qt-client-email" type="email" placeholder="client@example.com">
+
+          <div id="quote-items">
+            <div class="row q-item">
+              <div class="col"><input class="q-desc" placeholder="Description"></div>
+              <div style="width:110px"><input class="q-qty" type="number" placeholder="Qty"></div>
+              <div style="width:140px"><input class="q-price" type="number" placeholder="Unit price"></div>
+              <div style="width:80px"><button class="btn" onclick="this.closest('.q-item').remove()">Del</button></div>
+            </div>
+          </div>
+
+          <div style="margin-top:8px">
+            <button class="btn" onclick="addQuoteRow()">+ Add item</button>
+          </div>
+          <div class="actions">
+            <button class="btn" onclick="generateQuote()">Generate & Download CSV</button>
+            <button class="btn" onclick="emailQuote()">Open email to send</button>
+          </div>
+          <div id="qt-msg" class="smallmuted"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Access to Funding -->
+  <div class="section" id="funding">
+    <h3>Access to Funding (SA)</h3>
+    <p class="muted">Links to major grants and funding programmes in South Africa.</p>
+    <div class="grid" style="margin-top:10px">
+      <div class="card">
+        <strong>SEDA (Small Enterprise Development Agency)</strong>
+        <div class="small">Support and training for SMMEs.</div>
+        <a class="btn" href="https://www.seda.org.za" target="_blank">Visit SEDA</a>
+      </div>
+
+      <div class="card">
+        <strong>DTI (Department of Trade, Industry & Competition)</strong>
+        <div class="small">Incentives and funding programmes.</div>
+        <a class="btn" href="https://www.thedtic.gov.za" target="_blank">Visit the DTI</a>
+      </div>
+
+      <div class="card">
+        <strong>IDC (Industrial Development Corporation)</strong>
+        <div class="small">Industrial financing & support.</div>
+        <a class="btn" href="https://www.idc.co.za" target="_blank">Visit IDC</a>
+      </div>
+
+      <div class="card">
+        <strong>NEF (National Empowerment Fund)</strong>
+        <div class="small">Funding for black economic empowerment companies.</div>
+        <a class="btn" href="https://www.nefcorp.co.za" target="_blank">Visit NEF</a>
+      </div>
+
+      <div class="card">
+        <strong>NYDA (National Youth Development Agency)</strong>
+        <div class="small">Youth funding and support programmes.</div>
+        <a class="btn" href="https://www.nyda.gov.za" target="_blank">Visit NYDA</a>
+      </div>
+
+      <div class="card">
+        <strong>DBSA (Development Bank of Southern Africa)</strong>
+        <div class="small">Project finance and business support.</div>
+        <a class="btn" href="https://www.dbsa.org" target="_blank">Visit DBSA</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Business Templates -->
+  <div class="section" id="templates">
+    <h3>Business Templates</h3>
+    <p class="muted">Download templates: invoice (Excel-compatible), quotation (Excel), business plan (Word)</p>
+    <div class="grid" style="margin-top:10px">
+      <div class="card">
+        <strong>Invoice Template (CSV)</strong>
+        <div class="small">Opens in Excel. Pre-formatted fields for invoice.</div>
+        <div class="actions">
+          <a class="btn" id="download-invoice-template" href="#">Download</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Quotation Template (CSV)</strong>
+        <div class="small">Quotation layout you can edit in Excel.</div>
+        <div class="actions">
+          <a class="btn" id="download-quote-template" href="#">Download</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Business Plan Template (Word)</strong>
+        <div class="small">Simple business plan doc for download and editing.</div>
+        <div class="actions">
+          <a class="btn" id="download-plan-template" href="#">Download</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mentors -->
+  <div class="section" id="mentors">
+    <h3>Mentors</h3>
+    <p class="muted">We show mentors relevant to your industry and goal. Click "Request Intro" to email them or "Book 1:1" to schedule.</p>
+    <div id="mentors-grid" class="grid" style="margin-top:10px"></div>
+  </div>
+
+  <!-- Tenders -->
+  <div class="section" id="tenders">
+    <h3>Tender Learning & Workshops</h3>
+    <p class="muted">Live & online tender training resources and classes.</p>
+    <div class="grid" style="margin-top:10px">
+      <div class="card">
+        <strong>eTenders (National)</strong>
+        <div class="small">Official tender portal and notices.</div>
+        <a class="btn" href="https://www.etenders.gov.za" target="_blank">Visit eTenders</a>
+      </div>
+
+      <div class="card">
+        <strong>SEDA Tender Training</strong>
+        <div class="small">SEDA runs tender workshops — check their training schedules.</div>
+        <a class="btn" href="https://www.seda.org.za" target="_blank">SEDA Training</a>
+      </div>
+
+      <div class="card">
+        <strong>Online Workshop (Example)</strong>
+        <div class="small">Recorded/Live sessions about tender writing on YouTube & platforms.</div>
+        <a class="btn" href="https://www.youtube.com/results?search_query=tender+writing+workshop" target="_blank">YouTube Workshops</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Partnerships -->
+  <div class="section" id="partnerships">
+    <h3>Partnerships & Grants</h3>
+    <p class="muted">Recommended organisations and bank programs.</p>
+    <div class="grid" style="margin-top:10px">
+      <div class="card"><strong>SEDA</strong><div class="small">Small business support</div></div>
+      <div class="card"><strong>Standard Bank - Business Grants</strong><div class="small">Bank support programs</div></div>
+      <div class="card"><strong>Coega Development</strong><div class="small">Industrial partnerships</div></div>
+    </div>
+  </div>
+
+  <!-- Suppliers -->
+  <div class="section" id="suppliers">
+    <h3>Suppliers (Based on Industry)</h3>
+    <p class="muted">We show suppliers related to your industry selection.</p>
+    <div id="suppliers-grid" class="grid" style="margin-top:10px"></div>
+  </div>
+
+  <!-- Events & Community -->
+  <div class="section" id="events">
+    <h3>Events & Community</h3>
+    <p class="muted">Training events and community meetups (real or sample links).</p>
+    <div class="grid" style="margin-top:10px">
+      <div class="card"><strong>Webinar: Digital Sales for SMEs</strong><div class="small">15 Nov 2025 • Online • Host: Spark Growth</div><a class="btn" href="https://www.eventbrite.com" target="_blank">Details</a></div>
+      <div class="card"><strong>Entrepreneur Seminar: Scaling Smart</strong><div class="small">22 Nov 2025 • Johannesburg • Host: Biz Equip</div><a class="btn" href="#">Details</a></div>
+      <div class="card"><strong>Tender Training Day (Live)</strong><div class="small">3 Dec 2025 • Cape Town • Host: SEDA</div><a class="btn" href="https://www.seda.org.za" target="_blank">Details</a></div>
+    </div>
+  </div>
+
+  <!-- Videos -->
+  <div class="section" id="videos">
+    <h3>Video Tutorials</h3>
+    <div class="grid" style="margin-top:10px">
+      <div class="card"><iframe width="100%" height="170" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div>
+      <div class="card"><iframe width="100%" height="170" src="https://www.youtube.com/embed/3JZ_D3ELwOQ" frameborder="0" allowfullscreen></iframe></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-  // Retrieve from signup or login
-  const activeUser = JSON.parse(localStorage.getItem('activeUser'));
-  const signupUser = JSON.parse(localStorage.getItem('userData'));
-  const userData = activeUser || signupUser || { fullname: "Guest", industry: "General" };
+/* -------------------------
+  Load user / set UI
+---------------------------*/
+const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+const signupUser = JSON.parse(localStorage.getItem('userData'));
+const user = activeUser || signupUser || { fullname: 'Guest User', industry: 'General', goal: '' };
 
-  // Display user details
-  const name = userData.fullname || userData.name || "Guest";
-  const industry = userData.industry || "General";
+const displayName = document.getElementById('displayName');
+const displayIndustry = document.getElementById('displayIndustry');
+const avatarInitials = document.getElementById('avatarInitials');
+const welcomeMsg = document.getElementById('welcomeMsg');
 
-  document.getElementById("displayName").textContent = name;
-  document.getElementById("displayIndustry").textContent = "Industry: " + industry;
-  document.getElementById("avatarInitials").textContent = name.split(" ").map(n => n[0]).join("").substring(0,2).toUpperCase();
-  document.getElementById("welcomeMsg").textContent = `Welcome back, ${name} — here's your dashboard overview.`;
+const name = user.fullname || user.name || 'Guest';
+const industry = user.industry || 'General';
+const goal = user.goal || '';
 
-  // Edit profile
-  document.getElementById('editProfileBtn').addEventListener('click', () => {
-    const newName = prompt('Enter your full name:', name);
-    const newIndustry = prompt('Enter your industry:', industry);
-    if(newName){
-      const updated = { fullname: newName.trim(), industry: newIndustry.trim() };
-      localStorage.setItem('activeUser', JSON.stringify(updated));
-      localStorage.setItem('userData', JSON.stringify(updated));
-      location.reload();
-    }
+displayName.textContent = name;
+displayIndustry.textContent = 'Industry: ' + industry;
+avatarInitials.textContent = name.split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase();
+welcomeMsg.textContent = `Welcome back, ${name} — here's your dashboard overview.`;
+
+/* -------------------------
+  Sidebar navigation
+---------------------------*/
+document.querySelectorAll('.navlink').forEach(link=>{
+  link.addEventListener('click', e=>{
+    const target = link.dataset.section;
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    const el = document.getElementById(target);
+    if(el) el.classList.add('active');
+    // scroll main to top
+    document.querySelector('.main').scrollTop = 0;
+  });
+});
+// default
+document.getElementById('journey').classList.add('active');
+
+/* -------------------------
+  Logout / edit profile
+---------------------------*/
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  localStorage.removeItem('activeUser');
+  // keep userData for convenience but remove if you want
+  // localStorage.removeItem('userData');
+  window.location.href = 'index.html';
+});
+
+document.getElementById('editProfileBtn').addEventListener('click', ()=>{
+  const newName = prompt('Full name:', name);
+  if(newName === null) return;
+  const newIndustry = prompt('Industry:', industry);
+  if(newIndustry === null) return;
+  const updated = { fullname: newName.trim(), industry: newIndustry.trim(), goal: user.goal || '' };
+  localStorage.setItem('activeUser', JSON.stringify(updated));
+  localStorage.setItem('userData', JSON.stringify(updated));
+  location.reload();
+});
+
+/* -------------------------
+  Funding / suppliers / mentors data
+---------------------------*/
+const mentors = [
+  {name:'Sizwe Mthembu', company:'MicroTech Labs', province:'KwaZulu-Natal', city:'Durban', industries:['Technology','General'], goalTags:['Start a new business','Grow my business'], email:'sizwe@example.com', book:'https://calendly.com/example/sizwe' },
+  {name:'Lerato Nkosi', company:'Spark Growth Agency', province:'Western Cape', city:'Cape Town', industries:['Retail','Technology'], goalTags:['Grow my business','Find funding'], email:'lerato@example.com', book:'https://calendly.com/example/lerato' },
+  {name:'Bongani Dlamini', company:'CapitalRise', province:'Gauteng', city:'Johannesburg', industries:['Finance','Manufacturing'], goalTags:['Find funding','Access tenders'], email:'bongani@example.com', book:'https://calendly.com/example/bongani' },
+  {name:'Thabo Mokoena', company:'ScaleWorks', province:'Eastern Cape', city:'Gqeberha', industries:['Construction','Operations'], goalTags:['Scale my business','Access tenders'], email:'thabo@example.com', book:'https://calendly.com/example/thabo' }
+];
+
+// suppliers per industry
+const supplierMap = {
+  'Technology': [
+    {name:'Tech Hardware SA', info:'Laptops & accessories', link:'#'},
+    {name:'Local Print House', info:'Branding & printing', link:'#'}
+  ],
+  'Construction': [
+    {name:'Buco', info:'Hardware & building supplies', link:'https://www.buco.co.za/'},
+    {name:'Coega Development Corp', info:'Industrial procurement', link:'https://coega.co.za/'}
+  ],
+  'Food & Beverage': [
+    {name:'Bakers Hub', info:'Baking supplies', link:'#'},
+    {name:'Spar SA', info:'Retail partnerships', link:'https://www.spar.co.za/'}
+  ],
+  'Retail': [
+    {name:'Wholesale Fabrics', info:'Textiles supplier', link:'#'},
+    {name:'Office Depot', info:'Office supplies', link:'#'}
+  ],
+  'Manufacturing': [
+    {name:'Industrial Suppliers Ltd', info:'Machinery & parts', link:'#'},
+    {name:'Coca-Cola SA', info:'Supplier & distribution', link:'https://www.coca-cola.co.za/'}
+  ],
+  'Education': [
+    {name:'Nelson Mandela University (NMU)', info:'Courses & bootcamps', link:'https://business.mandela.ac.za/'}
+  ],
+  'General': [
+    {name:'SEDA', info:'Business support', link:'https://www.seda.org.za'},
+    {name:'Standard Bank Grants', info:'Bank grant programs', link:'#'}
+  ]
+};
+
+function renderMentors(){
+  const grid = document.getElementById('mentors-grid');
+  grid.innerHTML = '';
+  // filter mentors by user industry & goal
+  const userIndustry = industry;
+  const userGoal = (user.goal || '').toLowerCase();
+
+  const filtered = mentors.filter(m=>{
+    return m.industries.includes(userIndustry) || m.industries.includes('General') || (userGoal && m.goalTags.some(g=>g.toLowerCase().includes(userGoal)));
   });
 
-  // Logout
-  document.getElementById('logoutBtn').addEventListener('click', () => {
-    localStorage.removeItem('activeUser');
-    localStorage.removeItem('userData');
-    window.location.href = 'index.html';
+  const list = (filtered.length? filtered : mentors); // fallback
+  list.forEach(m=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <strong>${m.name}</strong>
+      <div class="small">${m.company} • ${m.city}, ${m.province}</div>
+      <div class="smallmuted">Industries: ${m.industries.join(', ')} | Focus: ${m.goalTags.join(', ')}</div>
+      <div style="margin-top:8px">
+        <a class="btn" href="mailto:${m.email}?subject=Request%20for%20Mentor%20Intro&body=Hi%20${encodeURIComponent(m.name)}%2C%0A%0AI%20would%20like%20an%20introduction.%20Please%20advise%20next%20steps.%0A%0AUser%3A%20${encodeURIComponent(name)}" target="_blank">Request Intro</a>
+        <a class="btn" href="${m.book}" target="_blank">Book 1:1</a>
+      </div>
+    `;
+    grid.appendChild(div);
   });
+}
 
-  // Sidebar navigation
-  const links = document.querySelectorAll('.sidebar a');
-  const sections = document.querySelectorAll('.section');
-
-  links.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = link.dataset.section;
-      sections.forEach(sec => sec.classList.remove('active'));
-      const activeSection = document.getElementById(target);
-      if(activeSection) activeSection.classList.add('active');
-      document.querySelector('.main').scrollTop = 0;
-    });
+function renderSuppliers(){
+  const grid = document.getElementById('suppliers-grid');
+  grid.innerHTML = '';
+  const list = supplierMap[industry] || supplierMap['General'];
+  list.forEach(s=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `<strong>${s.name}</strong><div class="small">${s.info}</div><div style="margin-top:8px"><a class="btn" href="${s.link}" target="_blank">Visit</a></div>`;
+    grid.appendChild(div);
   });
+}
 
-  // Default open
-  const defaultSection = document.getElementById('register');
-  if(defaultSection) defaultSection.classList.add('active');
+renderMentors();
+renderSuppliers();
+
+/* -------------------------
+  Budget planner
+---------------------------*/
+function runBudget(){
+  const income = parseFloat(document.getElementById('bp-income').value) || 0;
+  const expenses = parseFloat(document.getElementById('bp-expenses').value) || 0;
+  const profit = income - expenses;
+  const out = `Monthly Income: ZAR ${income.toFixed(2)}\nMonthly Expenses: ZAR ${expenses.toFixed(2)}\nEstimated Profit: ZAR ${profit.toFixed(2)}`;
+  document.getElementById('bp-output').textContent = out;
+  // create CSV download link
+  const csv = 'Item,Amount\nIncome,'+income+'\nExpenses,'+expenses+'\nProfit,'+profit;
+  const href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  const a = document.getElementById('bp-download');
+  a.href = href; a.download = 'budget-planner.csv'; a.style.display = 'inline-block';
+}
+
+/* -------------------------
+  Cashflow
+---------------------------*/
+function runCashflow(){
+  const start = parseFloat(document.getElementById('cf-start').value) || 0;
+  const monthly = parseFloat(document.getElementById('cf-month').value) || 0;
+  const rows = [['Month','Balance']];
+  let bal = start;
+  for(let i=1;i<=12;i++){
+    bal += monthly;
+    rows.push([`M${i}`, bal.toFixed(2)]);
+  }
+  // show small summary
+  document.getElementById('cf-output').textContent = 'Projected balance after 12 months: ZAR ' + bal.toFixed(2);
+  // CSV
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  const a = document.getElementById('cf-download');
+  a.href = href; a.download = 'cashflow-12months.csv'; a.style.display = 'inline-block';
+}
+
+/* -------------------------
+  Pricing / Costing
+---------------------------*/
+function calcPrice(){
+  const cost = parseFloat(document.getElementById('price-cost').value) || 0;
+  const markup = parseFloat(document.getElementById('price-markup').value) || 0;
+  const price = cost * (1 + markup/100);
+  document.getElementById('price-output').textContent = `Suggested price (retail): ZAR ${price.toFixed(2)} (cost ZAR ${cost.toFixed(2)}, markup ${markup}%)`;
+  const csv = `Cost,Markup,Price\n${cost},${markup},${price.toFixed(2)}`;
+  const a = document.getElementById('price-download');
+  a.href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download = 'pricing.csv'; a.style.display = 'inline-block';
+}
+
+/* -------------------------
+  Invoice builder helpers
+---------------------------*/
+function addInvoiceRow(){
+  const container = document.getElementById('invoice-items');
+  const div = document.createElement('div');
+  div.className = 'row item-row';
+  div.innerHTML = `<div class="col"><input class="item-desc" placeholder="Description"></div>
+    <div style="width:110px"><input class="item-qty" type="number" placeholder="Qty"></div>
+    <div style="width:140px"><input class="item-price" type="number" placeholder="Unit price"></div>
+    <div style="width:80px"><button class="btn" onclick="this.closest('.item-row').remove()">Del</button></div>`;
+  container.appendChild(div);
+}
+
+function generateInvoice(){
+  const invNo = document.getElementById('inv-no').value || 'INV-000';
+  const date = document.getElementById('inv-date').value || new Date().toISOString().slice(0,10);
+  const client = document.getElementById('inv-client').value || '';
+  const email = document.getElementById('inv-client-email').value || '';
+  const items = [...document.querySelectorAll('.item-row')].map(row=>{
+    const d = row.querySelector('.item-desc').value || '';
+    const q = parseFloat(row.querySelector('.item-qty').value) || 0;
+    const p = parseFloat(row.querySelector('.item-price').value) || 0;
+    const total = q * p;
+    return {d,q,p,total};
+  });
+  // CSV structure
+  let csv = 'Invoice No,Date,Client,Client Email\n';
+  csv += `${invNo},${date},"${client}",${email}\n\n`;
+  csv += 'Description,Qty,Unit Price,Total\n';
+  let grand = 0;
+  items.forEach(it=>{
+    csv += `"${it.d}",${it.q},${it.p.toFixed(2)},${it.total.toFixed(2)}\n`;
+    grand += it.total;
+  });
+  csv += `\nGrand Total,, ,${grand.toFixed(2)}\n`;
+  const href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  const filename = `${invNo}.csv`;
+  // download
+  const a = document.createElement('a');
+  a.href = href; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('inv-msg').textContent = `Invoice generated (Total: ZAR ${grand.toFixed(2)}). You can attach the downloaded CSV to your email.`;
+}
+
+function emailInvoice(){
+  const invNo = document.getElementById('inv-no').value || 'INV-000';
+  const date = document.getElementById('inv-date').value || new Date().toISOString().slice(0,10);
+  const client = document.getElementById('inv-client').value || '';
+  const email = document.getElementById('inv-client-email').value || '';
+  const items = [...document.querySelectorAll('.item-row')].map(row=>{
+    const d = row.querySelector('.item-desc').value || '';
+    const q = parseFloat(row.querySelector('.item-qty').value) || 0;
+    const p = parseFloat(row.querySelector('.item-price').value) || 0;
+    const total = q * p;
+    return {d,q,p,total};
+  });
+  let body = `Invoice ${invNo}\nDate: ${date}\nClient: ${client}\n\nItems:\n`;
+  let grand = 0;
+  items.forEach(it=>{
+    body += `${it.d} — ${it.q} x ZAR ${it.p.toFixed(2)} = ZAR ${it.total.toFixed(2)}\n`;
+    grand += it.total;
+  });
+  body += `\nGrand Total: ZAR ${grand.toFixed(2)}\n\n(Invoice created with Biz Equip)`;
+  const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent('Invoice '+invNo)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
+/* -------------------------
+  Quotation builder
+---------------------------*/
+function addQuoteRow(){
+  const container = document.getElementById('quote-items');
+  const div = document.createElement('div');
+  div.className = 'row q-item';
+  div.innerHTML = `<div class="col"><input class="q-desc" placeholder="Description"></div>
+    <div style="width:110px"><input class="q-qty" type="number" placeholder="Qty"></div>
+    <div style="width:140px"><input class="q-price" type="number" placeholder="Unit price"></div>
+    <div style="width:80px"><button class="btn" onclick="this.closest('.q-item').remove()">Del</button></div>`;
+  container.appendChild(div);
+}
+
+function generateQuote(){
+  const no = document.getElementById('qt-no').value || 'QT-000';
+  const date = document.getElementById('qt-date').value || new Date().toISOString().slice(0,10);
+  const client = document.getElementById('qt-client').value || '';
+  const email = document.getElementById('qt-client-email').value || '';
+  const items = [...document.querySelectorAll('.q-item')].map(row=>{
+    const d = row.querySelector('.q-desc').value || '';
+    const q = parseFloat(row.querySelector('.q-qty').value) || 0;
+    const p = parseFloat(row.querySelector('.q-price').value) || 0;
+    const total = q*p;
+    return {d,q,p,total};
+  });
+  let csv = 'Quotation No,Date,Client,Client Email\n';
+  csv += `${no},${date},"${client}",${email}\n\n`;
+  csv += 'Description,Qty,Unit Price,Total\n';
+  let grand = 0;
+  items.forEach(it=>{
+    csv += `"${it.d}",${it.q},${it.p.toFixed(2)},${it.total.toFixed(2)}\n`;
+    grand += it.total;
+  });
+  csv += `\nGrand Total,, ,${grand.toFixed(2)}\n`;
+  const href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  const a = document.createElement('a');
+  a.href = href; a.download = `${no}.csv`; document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('qt-msg').textContent = `Quotation generated (Total: ZAR ${grand.toFixed(2)}).`;
+}
+
+function emailQuote(){
+  const no = document.getElementById('qt-no').value || 'QT-000';
+  const date = document.getElementById('qt-date').value || new Date().toISOString().slice(0,10);
+  const client = document.getElementById('qt-client').value || '';
+  const email = document.getElementById('qt-client-email').value || '';
+  const items = [...document.querySelectorAll('.q-item')].map(row=>{
+    const d = row.querySelector('.q-desc').value || '';
+    const q = parseFloat(row.querySelector('.q-qty').value) || 0;
+    const p = parseFloat(row.querySelector('.q-price').value) || 0;
+    const total = q*p;
+    return {d,q,p,total};
+  });
+  let body = `Quotation ${no}\nDate: ${date}\nClient: ${client}\n\nItems:\n`;
+  let grand=0;
+  items.forEach(it=>{
+    body += `${it.d} — ${it.q} x ZAR ${it.p.toFixed(2)} = ZAR ${it.total.toFixed(2)}\n`;
+    grand += it.total;
+  });
+  body += `\nGrand Total: ZAR ${grand.toFixed(2)}\n\n(Quotation created with Biz Equip)`;
+  const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent('Quotation '+no)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
+/* -------------------------
+  Templates download (CSV / DOC)
+---------------------------*/
+const invoiceTemplateCSV = `Invoice No,Date,Client,Client Email,Description,Qty,Unit Price,Total
+INV-001,2025-01-01,Your Client,client@example.com,Service A,1,100.00,100.00
+`;
+
+const quoteTemplateCSV = `Quotation No,Date,Client,Client Email,Description,Qty,Unit Price,Total
+QT-001,2025-01-01,Your Client,client@example.com,Product A,10,50.00,500.00
+`;
+
+const businessPlanDoc = `Business Plan Template
+
+1. Executive Summary
+2. Business Description
+3. Products & Services
+4. Market Analysis
+5. Sales & Marketing
+6. Operations Plan
+7. Financial Plan
+8. Appendix
+`;
+
+document.getElementById('download-invoice-template').href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(invoiceTemplateCSV);
+document.getElementById('download-invoice-template').download = 'invoice-template.csv';
+
+document.getElementById('download-quote-template').href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(quoteTemplateCSV);
+document.getElementById('download-quote-template').download = 'quotation-template.csv';
+
+document.getElementById('download-plan-template').href = 'data:application/msword;charset=utf-8,'+encodeURIComponent(businessPlanDoc);
+document.getElementById('download-plan-template').download = 'business-plan-template.doc';
+
+/* -------------------------
+  Render initial sections for first load
+---------------------------*/
+document.querySelectorAll('.navlink').forEach(l=>l.addEventListener('click', ()=>{
+  // collapse any open sub-UI if necessary
+}));
+
+/* -------------------------
+  Ensure elements exist and behave
+---------------------------*/
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.getElementById('journey').classList.add('active');
+
 </script>
-
 </body>
 </html>
